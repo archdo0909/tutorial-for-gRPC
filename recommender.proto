@@ -1,0 +1,45 @@
+// specifies using proto3
+syntax = "proto3";
+
+/* Define message for recommend model 
+
+    parameter :
+        User ID
+        List of user content watch list
+
+    return : 
+        List of user recommend content list 
+
+*/
+service RecommendService {
+    
+    rpc modelTrainingEvent(TrainRequest) returns (TrainResponse) {}
+
+    rpc RecommendContentEvent(RecommendRequest) returns (RecommendResponse) {}
+
+}
+
+message RecommendRequest {
+    // user id
+    int64 user_id = 1;
+}
+
+message TrainRequest {
+    // Hyper-Parameter
+    int64 n_factor = 1;
+    int64 n_epochs = 2;
+    int64 random_state = 3;
+}
+
+message TrainResponse {
+    string result = 1;
+}
+
+message RecommendResponse {
+    repeated Content content = 1;
+}
+
+message Content {
+    int64 id = 1;
+    string name = 2;
+}
